@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 /**
@@ -6,11 +7,20 @@
  *
  * @param number The 32-bit unsigned integer to be converted to binary and printed.
  */
-void print_binary(uint32_t number) {
-    // write your logic here
-    printf("TODO");
-}
 
+void print_binary(uint32_t number) {
+
+    //printf("number =, %d", number);
+    //scanf("%d", &number);
+    if (number == 0) {
+        printf("0");
+    }
+
+    while ( number >= 1) {
+        printf("%d", number % 2);
+        number = number /2;
+    }
+}
 
 /**
  * Prints the elements of an integer array to the standard output.
@@ -18,11 +28,16 @@ void print_binary(uint32_t number) {
  * @param array A pointer to the array containing the integers to be printed.
  * @param size The number of elements in the array.
  */
-void print_array(int* array, int size) {
-    // write your logic here
-    printf("TODO");
-}
 
+void print_array(int* array, int size)
+{
+    printf("{");
+
+    for (int i = 0; i < size; i++)
+        printf("%d,",array[i]);
+
+    printf("}");
+}
 
 /**
  * Prints the hexadecimal representation of the elements in the given integer array.
@@ -30,9 +45,15 @@ void print_array(int* array, int size) {
  * @param array A pointer to the integer array whose elements should be printed in hexadecimal format.
  * @param size The number of elements in the array.
  */
+
 void print_array_hex(int* array, int size) {
-    // write your logic here
-    printf("TODO");
+
+    printf("{");
+
+    for (int i = 0; i < size; i++)
+        printf( "%x,",array[i]);
+
+    printf("}");
 }
 
 /**
@@ -42,11 +63,30 @@ void print_array_hex(int* array, int size) {
  * @param size The number of elements in the array. Must be greater than zero.
  * @return The average value of the array elements as an integer.
  */
+
 float get_array_average(int* array, int size) {
-    // write your logic here
-    return 0;
+
+    int average = 0, s = 0, k = 0;
+
+    for (int i = 0; i < size; i++) {
+        s += array[i];
+        k++;
+    }
+
+    return s/k;
 }
 
+float get_array_average_float(float* array, float size) {
+
+    int average = 0, s = 0, k = 0;
+
+    for (int i = 0; i < size; i++) {
+        s += array[i];
+        k++;
+    }
+
+    return s/k;
+}
 
 /**
  * Finds and returns the largest element in the given array of integers.
@@ -55,11 +95,42 @@ float get_array_average(int* array, int size) {
  * @param size The size of the array.
  * @return The largest integer in the array. If the array is empty, the behavior is undefined.
  */
+
 int get_largest(int* array, int size) {
-    // write your logic here
-    return 0;
+
+    int max = array[0];
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] > max)
+            max = array[i];
+    }
+
+    return max;
 }
 
+float get_largest_float(float* array, int size) {
+
+    float max = array[0];
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] > max)
+            max = array[i];
+    }
+
+    return max;
+}
+
+float get_smallest_float(float* array, int size) {
+
+    float min = array[0];
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] < min)
+            min = array[i];
+    }
+
+    return min;
+}
 
 /**
  * Counts the number of odd elements in the given array.
@@ -67,9 +138,16 @@ int get_largest(int* array, int size) {
  * @param array A pointer to the array of integers to be processed.
  * @param size The size of the array.
  * @return The odd elements count */
+
 int get_odd_elements_count(int* array, int size) {
-    // write your logic here
-    return 0;
+
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] % 2 != 0)
+            count++;
+    }
+    return count;
 }
 
 
@@ -81,11 +159,15 @@ int get_odd_elements_count(int* array, int size) {
  * @param value The target value to search for within the array.
  * @return The index of the first occurrence of the target value if found, or -1 if the value is not present.
  ``` */
-int linear_search(int* array, int size, int value) {
-    // write your logic here
-    return 0;
-}
 
+int linear_search(int* array, int size, int value) {
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] == value)
+            return i;
+    }
+    return -1;
+}
 
 /**
  * Swaps the elements of an array at the specified indices.
@@ -95,10 +177,20 @@ int linear_search(int* array, int size, int value) {
  * @param index1 The index of the first element to be swapped.
  * @param index2 The index of the second element to be swapped.
  */
+
 void swap_elements(int* array, int size, int index1, int index2) {
-    // write your logic here
+
+    int container = array[index1];
+    array[index1] = array[index2];
+    array[index2] = container;
 }
 
+void swap_elements_char(char* array, int size, int index1, int index2) {
+
+    int container = array[index1];
+    array[index1] = array[index2];
+    array[index2] = container;
+}
 
 /**
  * Reverses the elements of an integer array in-place.
@@ -106,8 +198,19 @@ void swap_elements(int* array, int size, int index1, int index2) {
  * @param array The pointer to the integer array to be reversed.
  * @param size The size of the array to be reversed.
  */
+
 void reverse_array(int* array, int size) {
-    // write your logic here
+
+    for (int i = 0 ; i < size /2; i++) {
+        swap_elements(array, size, i,size - i - 1);
+    }
+}
+
+void reverse_array_char(char* array, int size) {
+
+    for (int i = 0 ; i < size /2; i++) {
+        swap_elements_char(array, size, i,size - i - 1);
+    }
 }
 
 
@@ -118,16 +221,25 @@ void reverse_array(int* array, int size) {
  * @param from_array Pointer to the source array to copy data from.
  * @param size The number of elements to be copied from the source array.
  */
+
 void copy_array(int* to_array, int* from_array, int size) {
-    // write your logic here
+
+    //Destination array??
+
+    for (int i = 0; i < size; i++) {
+        to_array[i] = from_array[i];
+    }
 }
 
 /**############################################## ADVANCED TASKS#####################################################*/
 /**
  * Imagine an array containing the temperature values read from sensors.
- * Sometimes sensors can glitch and send very strange values (eg. 1547.4, 52002.985) instead of real temperature (eg. 10.4, 21.0, -18.4)
- * Function that calculates the average temperature should "fix" this incorrect values to not pollute the average calculation.
- * For that we define min and max threshold values to filter out the incorrect values. You should either ignore incorrect values or replace them with the nearest valid value.
+ * Sometimes sensors can glitch and send very strange values (eg. 1547.4, 52002.985) instead of real temperature
+ * (eg. 10.4, 21.0, -18.4)
+ * Function that calculates the average temperature should "fix" this incorrect values to not pollute
+ * the average calculation.
+ * For that we define min and max threshold values to filter out the incorrect values.
+ * You should either ignore incorrect values or replace them with the nearest valid value.
  * For example if min is -50 and max is 90, you should interpret these value like this:
  *      -15.9   ->  -15.9 (value is in the valid range, use it as it is)
  *      -98.2   ->  -50 (value is NOT in the valid range, use -50 instead)
@@ -142,8 +254,45 @@ void copy_array(int* to_array, int* from_array, int size) {
  * @param max The maximum valid temperature value.
  */
 float temperature_average(float* array, float size, float min, float max) {
-    // write your logic here
-    return 0;
+
+    int count = 0;
+    float sum = 0;
+
+    // max = get_largest_float(array,(int)size);
+    // min = get_smallest_float(array, (int)size);
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] >= min && array[i] <= max) {
+            printf("%f,- value is in the valid range, use it as it is", array[i]);
+            sum += array[i];
+            count++;
+        }
+        else if (array[i]< min) {
+            printf("%f,- value is NOT in the valid range, use %f instead", array[i], min);
+            array[i] = min;
+            sum += array[i];
+            count++;
+        }
+        else {
+            printf("%f,- value is NOT in the valid range, use %f instead", array[i], max);
+            array[i] = max;
+            sum += array[i];
+            count++;
+        }
+
+    }
+
+    return sum / count;
+}
+
+
+int power_of_2(int n) {
+    int result = 1;
+    //
+    // for (int i = 0; i < n; i++) {
+    //     result = result * 2;
+    // }
+    return result;
 }
 
 
@@ -171,12 +320,31 @@ float temperature_average(float* array, float size, float min, float max) {
  *                         ^                                    ^
  * (bit 1 is already set, so after setting it again nothing changes)
  */
+
 uint8_t set_bit(uint8_t number, uint8_t bit_index) {
-    // write your logic here
-    return 0;
+
+    int k = 0;
+    while (number > 0) {
+        number /= 10;
+        k++;
+    }
+
+    print_binary(number);
+
+    char str[k];
+    sprintf(str, "%d", number);
+    reverse_array_char(str,k);
+
+    for (int i = 0; i < k; i++) {
+        if (bit_index == i) {
+            str[i] = '1';
+        }
+    }
+
+    number = strtol(str, NULL, 2);
+
+    return number;
 }
-
-
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
@@ -190,6 +358,10 @@ int main(void) {
     print_binary(0);
     printf("%s\nBinary of 5: ", KYEL);
     print_binary(5);
+    printf("%s\nBinary of 7: ", KYEL);
+    print_binary(7);
+    printf("%s\nBinary of 8: ", KYEL);
+    print_binary(8);
     printf("%s\nBinary of 255: ", KYEL);
     print_binary(255);
     printf("%s\nBinary of 4294967295: ", KYEL);
