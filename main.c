@@ -285,16 +285,6 @@ float temperature_average(float* array, float size, float min, float max) {
     return sum / count;
 }
 
-
-int power_of_2(int n) {
-    int result = 1;
-    //
-    // for (int i = 0; i < n; i++) {
-    //     result = result * 2;
-    // }
-    return result;
-}
-
 /**
  * Computes 2 raised to the power of the given integer without using loops and multiplication
  *
@@ -303,13 +293,12 @@ int power_of_2(int n) {
  */
 int power_of_2(int n) {
     int result = 1;
-
+    //
     // for (int i = 0; i < n; i++) {
     //     result = result * 2;
     // }
     return result;
 }
-
 
 /**
  * Sets the bit at the specified index in the given integer to 1.
