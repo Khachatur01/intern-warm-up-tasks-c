@@ -146,6 +146,21 @@ float temperature_average(float* array, float size, float min, float max) {
     return 0;
 }
 
+/**
+ * Computes 2 raised to the power of the given integer without using loops and multiplication
+ *
+ * @param n The exponent to which 2 is raised. Must be a non-negative integer.
+ * @return The result of 2 raised to the power of n.
+ */
+int power_of_2(int n) {
+    int result = 1;
+
+    // for (int i = 0; i < n; i++) {
+    //     result = result * 2;
+    // }
+    return result;
+}
+
 
 /**
  * Sets the bit at the specified index in the given integer to 1.
@@ -190,6 +205,10 @@ int main(void) {
     print_binary(0);
     printf("%s\nBinary of 5: ", KYEL);
     print_binary(5);
+    printf("%s\nBinary of 7: ", KYEL);
+    print_binary(7);
+    printf("%s\nBinary of 8: ", KYEL);
+    print_binary(8);
     printf("%s\nBinary of 255: ", KYEL);
     print_binary(255);
     printf("%s\nBinary of 4294967295: ", KYEL);
@@ -279,6 +298,19 @@ int main(void) {
     float real_average = (-15.9 + -50.0 + 24.5 + 90.0 + 20.0 + -30.0) / 6.0;
     printf("%sTemperature average with thresholds [-50, 90]: %.2f (expected %.2f)\n\n", temp_avg == real_average ? KGRN : KRED, temp_avg, real_average);
 
+    printf("%s=== Testing power_of_2 ===\n", KBLU);
+    int pow_test1 = power_of_2(5);
+    printf("%s2 raised to the power of 5: %d (expected: 32)\n", pow_test1 == 32 ? KGRN : KRED, pow_test1);
+    int pow_test2 = power_of_2(7);
+    printf("%s2 raised to the power of 7: %d (expected: 128)\n", pow_test2 == 128 ? KGRN : KRED, pow_test2);
+    int pow_test3 = power_of_2(0);
+    printf("%s2 raised to the power of 0: %d (expected: 1)\n", pow_test3 == 1 ? KGRN : KRED, pow_test3);
+    int pow_test4 = power_of_2(8);
+    printf("%s2 raised to the power of 8: %d (expected: 256)\n", pow_test4 == 256 ? KGRN : KRED, pow_test4);
+    int pow_test5 = power_of_2(16);
+    printf("%s2 raised to the power of 16: %d (expected: 65536)\n", pow_test5 == 65536 ? KGRN : KRED, pow_test5);
+    printf("\n");
+
     printf("%s=== Testing set_bit ===\n", KBLU);
     uint8_t bit_test1 = set_bit(0b00000000, 0);
     printf("%sset_bit(0b00000000, 0) = 0b%08d (expected: 0b00000001, decimal: %d)\n", bit_test1 == 0b00000001 ? KGRN : KRED, bit_test1, bit_test1);
@@ -287,7 +319,7 @@ int main(void) {
     printf("%sset_bit(0b00000000, 5) = 0b%08d (expected: 0b00100000, decimal: %d)\n", bit_test2 == 0b00100000 ? KGRN : KRED, bit_test2, bit_test2);
 
     uint8_t bit_test3 = set_bit(0b10000000, 1);
-    printf("set_bit%s(0b10000000, 1) = 0b%08d (expected: 0b10000010, decimal: %d)\n", bit_test3 == 0b10000010 ? KGRN : KRED, bit_test3, bit_test3);
+    printf("%sset_bit(0b10000000, 1) = 0b%08d (expected: 0b10000010, decimal: %d)\n", bit_test3 == 0b10000010 ? KGRN : KRED, bit_test3, bit_test3);
 
     uint8_t bit_test4 = set_bit(0b00000010, 1);
     printf("%sset_bit(0b00000010, 1) = 0b%08d (expected: 0b00000010, decimal: %d)\n", bit_test4 == 0b00000010 ? KGRN : KRED, bit_test4, bit_test4);
