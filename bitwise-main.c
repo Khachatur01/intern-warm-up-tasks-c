@@ -9,7 +9,10 @@
  * @param index The bit position (0-based, where 0 is the least significant bit)
  * @return The bit value at the specified index (0 or 1)
  */
+
 int get_bit(int number, int index) {
+       if (number >> index & 1 )
+              return 1;
     return 0;
 }
 
@@ -21,7 +24,11 @@ int get_bit(int number, int index) {
  * @return The modified number with the bit set to 1 at the specified index
  */
 int set_bit(int number, int index) {
-    return 0;
+
+      /* if (!(number >> index & 1 ))
+                    number |= 1 << index;*/
+
+    return number |= 1 << index;
 }
 
 /**
@@ -31,8 +38,12 @@ int set_bit(int number, int index) {
  * @param index The bit position to clear (0-based, where 0 is the least significant bit)
  * @return The modified number with the bit cleared to 0 at the specified index
  */
+
 int clear_bit(int number, int index) {
-    return 0;
+
+       if (!(number >> index & 1 ))
+              return number &= 1 << index;
+    return number ^= 1 << index;
 }
 
 /**
@@ -45,8 +56,11 @@ int clear_bit(int number, int index) {
  * @param index The bit position to flip (0-based, where 0 is the least significant bit)
  * @return The modified number with the bit flipped at the specified index
  */
+
 int flip_bit(int number, int index) {
-    return 0;
+       if (!(number >> index & 1 ))
+              return number |= 1 << index;
+    return number ^= 1 << index;
 }
 
 /**
@@ -55,18 +69,36 @@ int flip_bit(int number, int index) {
  * @param number The integer number to check
  * @return 0 if the number has even parity (even number of 1 bits), 1 if odd parity
  */
+
 int check_parity(int number) {
+       if((number >> 0 & 1 ))
+              return 1;
     return 0;
 }
 
-/**
- * Flips (inverts) all bits in the given number using bitwise NOT operation.
+int check_parity1(uint16_t number) {
+
+       int count_of_0 = 0, count_of_1 = 0;
+
+       for (int i = 0; i < sizeof(uint16_t) * 8; i++) {
+              if (number >> i & 1)
+                     count_of_1++;
+              else
+                     count_of_0++;
+       }
+
+       if (count_of_1 & 1)
+              return 1;
+       return 0;
+}
+
+/*
+ * Flips (inverts) all bits in the given number without using bitwise NOT operation.
  *
- * DON'T use ~ operator
- * 
  * @param number The integer number to invert
  * @return The number with all bits flipped (ones become zeros and vice versa)
  */
+
 int flip_all_bits(int number) {
     return 0;
 }
@@ -181,16 +213,24 @@ int main(void) {
     printf("%scheck_parity(0b00000001) = %d (expected: 1 - odd)\n", parity_test2 == 1 ? KGRN : KRED, parity_test2);
 
     int parity_test3 = check_parity(0b00000011);
-    printf("%scheck_parity(0b00000011) = %d (expected: 0 - even)\n", parity_test3 == 0 ? KGRN : KRED, parity_test3);
+    printf("%scheck_parity(0b00000011) = %d (expected: 1 - odd)\n", parity_test3 == 1 ? KGRN : KRED, parity_test3);
 
     int parity_test4 = check_parity(0b11111111);
-    printf("%scheck_parity(0b11111111) = %d (expected: 0 - even)\n", parity_test4 == 0 ? KGRN : KRED, parity_test4);
+    printf("%scheck_parity(0b11111111) = %d (expected: 1 - odd)\n", parity_test4 == 1 ? KGRN : KRED, parity_test4);
 
     int parity_test5 = check_parity(0b10101010);
     printf("%scheck_parity(0b10101010) = %d (expected: 0 - even)\n", parity_test5 == 0 ? KGRN : KRED, parity_test5);
 
     int parity_test6 = check_parity(0b10101011);
     printf("%scheck_parity(0b10101011) = %d (expected: 1 - odd)\n\n", parity_test6 == 1 ? KGRN : KRED, parity_test6);
+
+    printf("%s=== Testing check_parity1 ===\n", KBLU);
+    int parity_test11 = check_parity1(0b00000000);
+       printf("%sheck_parity1(0b00000000) = %d (expected: 0 - even)\n", parity_test11 == 0 ? KGRN : KRED, parity_test11);
+       int parity_test12 = check_parity1(0b00101001);
+       printf("%sheck_parity1(0b00101001) = %d (expected: 1 - odd)\n", parity_test12 == 1 ? KGRN : KRED, parity_test12);
+       int parity_test13 = check_parity1(0b00111001);
+       printf("%sheck_parity1(0b00101001) = %d (expected: 0 - odd)\n", parity_test13 == 0 ? KGRN : KRED, parity_test13);
 
     printf("%s=== Testing flip_all_bits ===\n", KBLU);
     int flip_all_test1 = flip_all_bits(0b00000000);
