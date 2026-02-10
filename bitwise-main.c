@@ -94,6 +94,7 @@ int is_power_of_2(int number) {
 #define KBLU  "\x1B[34m"
 
 int main(void) {
+
     printf("%s=== Testing get_bit ===\n", KBLU);
     int get_test1 = get_bit(0b00001010, 0);
     printf("%sget_bit(0b00001010, 0) = %d (expected: 0)\n", get_test1 == 0 ? KGRN : KRED, get_test1);

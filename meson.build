@@ -4,5 +4,6 @@ project('intern-warm-up-tasks', 'c',
 
 intern_warm_up_tasks = executable('intern_warm_up_tasks', 'main.c', install : true)
 bitwise = executable('bitwise', 'bitwise-main.c', install : true)
+array = executable('array', 'array-main.c', install : true)
 
 test('test', intern_warm_up_tasks)
