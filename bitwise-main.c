@@ -18,7 +18,7 @@ int get_bit(int number, int index) {
 
 /**
  * Sets the bit at the specified index to 1 in the given number.
- * 
+ *
  * @param number The integer number to modify
  * @param index The bit position to set (0-based, where 0 is the least significant bit)
  * @return The modified number with the bit set to 1 at the specified index
@@ -33,7 +33,7 @@ int set_bit(int number, int index) {
 
 /**
  * Clears the bit at the specified index to 0 in the given number.
- * 
+ *
  * @param number The integer number to modify
  * @param index The bit position to clear (0-based, where 0 is the least significant bit)
  * @return The modified number with the bit cleared to 0 at the specified index
@@ -51,7 +51,7 @@ int clear_bit(int number, int index) {
  * If the bit is 0, it becomes 1; if it's 1, it becomes 0.
  *
  * DON'T use ~ operator
- * 
+ *
  * @param number The integer number to modify
  * @param index The bit position to flip (0-based, where 0 is the least significant bit)
  * @return The modified number with the bit flipped at the specified index
@@ -65,7 +65,7 @@ int flip_bit(int number, int index) {
 
 /**
  * Checks the parity of the given number by counting the number of set bits.
- * 
+ *
  * @param number The integer number to check
  * @return 0 if the number has even parity (even number of 1 bits), 1 if odd parity
  */
@@ -100,7 +100,10 @@ int check_parity1(uint16_t number) {
  */
 
 int flip_all_bits(int number) {
-    return 0;
+
+       for (int i = 0; i < sizeof(int) * 8; i++)
+                     number = number ^ 1 << i;
+    return number;
 }
 
 /**
@@ -111,12 +114,16 @@ int flip_all_bits(int number) {
  *
  * HINT: Write down binary representation of any power of 2 number (1, 2, 4, 8, 16, 32, 64, ...).
  *       Write down the same number in binary representation -1.
- * 
+ *
  * @param number The integer number to check
  * @return 1 if the number is a power of 2, 0 otherwise
  */
 int is_power_of_2(int number) {
-    return 0;
+       if (number & (number - 1))
+              return 0;
+       if (!number)
+              return 0;
+    return 1;
 }
 
 #define KNRM  "\x1B[0m"
