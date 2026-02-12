@@ -119,11 +119,11 @@ int flip_all_bits(int number) {
  * @return 1 if the number is a power of 2, 0 otherwise
  */
 int is_power_of_2(int number) {
+       if (number <= 0)
+              return 0;
        if (number & (number - 1))
               return 0;
-       if (!number)
-              return 0;
-    return 1;
+    return 1;  //number & (number - 1) == 0;
 }
 
 #define KNRM  "\x1B[0m"

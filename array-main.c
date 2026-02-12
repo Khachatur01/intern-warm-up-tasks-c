@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define VECTOR_CAPACITY 10
+#define VECTOR_CAPACITY 100
 
 typedef struct int_array {
     int elements[VECTOR_CAPACITY];
@@ -14,6 +14,7 @@ typedef struct int_array {
  * @param array Pointer to the int_array_t structure to initialize
  */
 void vector_init(int_array_t* array) {
+    array->size = 0;
 }
 
 /**
@@ -32,7 +33,11 @@ void vector_print(int_array_t* array) {
  * @param element The integer value to add to the array
  * @return 0 if successful, -1 if an array is full
  */
+
 int vector_push_back(int_array_t* array, int element) {
+     if (array->size >= VECTOR_CAPACITY)
+         return -1;
+     array->elements[array->size++] = element;
    return 0;
 }
 
@@ -41,10 +46,13 @@ int vector_push_back(int_array_t* array, int element) {
  *
  * @param array Pointer to the int_array_t structure
  * @param index The position of the element to retrieve
- * @return The integer value at the specified index. Return -1 if no element is found, -2 if the index is out of bounds
+ * @return The integer value at the specified index. Return -1 if the index is out of bounds
  */
+
 int vector_get(int_array_t* array, int index) {
-    return 0;
+    if (index < 0 || index >= array->size)
+        return -1;
+    return array->elements[index];
 }
 
 /**
@@ -55,7 +63,13 @@ int vector_get(int_array_t* array, int index) {
  * @param element The new integer value to set
  * @return 0 if successful, -1 if the index is out of bounds
  */
+
 int vector_set(int_array_t* array, int index, int element) {
+
+    if (index < 0 || index >= array->size)
+        return -1;
+    array->elements[index] = element;
+
     return 0;
 }
 
@@ -67,7 +81,22 @@ int vector_set(int_array_t* array, int index, int element) {
  * @param element The integer value to insert
  * @return 0 if successful, -1 if the index is out of bounds, -2 if the array is full
  */
+
 int vector_insert(int_array_t* array, int index, int element) {
+
+    if (index < 0 || index >= array->size)
+        return -1;
+    if (array->size >= VECTOR_CAPACITY)
+        return -2;
+
+    for (int i = array->size; i > index; i--) {
+        int t = array->elements[i];
+        array->elements[i] = array->elements[i-1];
+        array->elements[i-1] = t;
+    }
+
+    array->elements[index] = element;
+
     return 0;
 }
 
@@ -78,7 +107,16 @@ int vector_insert(int_array_t* array, int index, int element) {
  * @param index The position of the element to remove
  * @return 0 if successful, -1 if the index is out of bounds, -2 if the array is empty
  */
+
 int vector_remove(int_array_t* array, int index) {
+    if (array->size == 0)
+        return -2;
+    if (index < 0 || index >= array->size)
+        return -1;
+    for (int i = index; i < array->size; i++) {
+        array->elements[i] = array->elements[i + 1];
+    }
+    array->size--;
     return 0;
 }
 
@@ -88,7 +126,7 @@ int vector_remove(int_array_t* array, int index) {
  * @param array Pointer to the int_array_t structure to clear
  */
 void vector_clear(int_array_t* array) {
-    
+    array->size = 0;
 }
 
 #define KNRM  "\x1B[0m"
@@ -134,7 +172,7 @@ int main(void) {
     printf("%svector_get(2) = %d (expected: 30)\n", get_test3 == 30 ? KGRN : KRED, get_test3);
 
     int get_test4 = vector_get(&array, 10);
-    printf("%svector_get(10) = %d (expected: -2 - out of bounds)\n\n", get_test4 == -2 ? KGRN : KRED, get_test4);
+    printf("%svector_get(10) = %d (expected: -1 - out of bounds)\n\n", get_test4 == -1 ? KGRN : KRED, get_test4);
 
     printf("%s=== Testing vector_set ===\n", KBLU);
     int set_test1 = vector_set(&array, 1, 25);
